@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding:0;}
+			li{list-style:none;border-bottom:1px solid #eee;padding:10px 0 10px 20px; }
+			.search{border:2px solid royalblue;width:300px;margin:10px 0 10px 20px;width:290px;}
+			.search input{border:none;height:25px;width:200px;line-height:25px;font-size:14px;color:#323232;
+			float:left;display:inline-block;padding-left:10px;}
+			.search button{display:inline-block;height:25px;width:80px;line-height:25px;border:none;
+			font-size:14px;color:#fff;background:royalblue;text-align:center;
+			cursor:pointer;}
+		</style>
+		<script type="text/javascript">
+			window.onload=function (){
+				let oRanking=document.getElementById('ranking_list');
+				let oBtn=document.getElementById('btn');
+				let oTxt=document.getElementById('txt');
+				function createXHR(){
+					if(XMLHttpRequest){
+						return new XMLHttpRequest();
+					}
+					return new ActiveXObject('Mricosoft.XMLHTTP')
+				}
+				//创建对象
+				let xhr=createXHR();
+				url=' http://60.205.181.47/myPHPCode4/getRank.php?';
+				
+				//	建立连接
+				xhr.open('get',url,true);
+				//请求头
+				xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+				//发送请求
+				xhr.send(null);
+				xhr.onreadystatechange=()=>{
+					if(xhr.readyState==4&&xhr.status==200){
+					//console.log(xhr.responseText);
+						let data=JSON.parse(xhr.responseText);
+						for(let i=0;i<data.length;i++){
+							let list=document.createElement('li');
+							list.innerHTML=(i+1)+'  '+data[i].name+':'+data[i].score;
+							oRanking.appendChild(list);
+						}
+						oBtn.onclick=function (){
+							
+							let oList=oRanking.getElementsByTagName('li');
+							
+							for(let j=0;j<data.length;j++){
+								if(oTxt.value==data[j].name){
+									
+									oList[j].style.background='red';
+						
+								document.body.scrollTop=document.documentElement.scrollTop=oList[j].offsetTop;
+									
+								}
+							}
+						}
+						
+					}
+				}	
+			}
+		</script>
+	</head>
+	<body>
+		<h3>排行榜：</h3>
+		<p class='search'>
+			<input type='text' id='txt' placeholder='请输入昵称'>
+			<button id='btn'>搜索</button>
+		</p>
+		
+		<ul id='ranking_list'></ul>
+	</body>
+</html>

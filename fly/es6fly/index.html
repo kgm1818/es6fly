@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link type="text/css" rel="stylesheet" href="css/style_1.0.0.css" />
+		<script type="text/javascript" src='js/common.js'></script>
+		<script type="text/javascript" src='js/base.js'></script>
+		
+		
+		<script type="text/javascript" src='js/gameScene.js'></script>
+		<script type="text/javascript" src='js/myPlay.js'></script>	
+		<script type="text/javascript" src='js/bullet.js'></script>	
+		<script type="text/javascript" src='js/enemyPlay.js'></script>	
+		
+		<script type="text/javascript">
+			window.onload=onresize=function (){
+				//主菜单
+				//加载游戏
+				//游戏主界面
+				
+				//游戏
+				//C++,lua, cocos2dx (模仿cocos2d写的（object-c语言）)
+				//C#, Unity3d
+				
+				//场景
+				//导演
+				//演员
+				
+				//飞机大战
+				//游戏引擎：对象
+				//我的飞机： 对象
+				//敌机： 构造函数
+				//子弹： 构造函数
+				
+				let items=document.getElementById('items');
+				
+				let lis=items.getElementsByTagName('li');
+//				console.log(lis);
+				let oSorse=document.getElementById('score');
+				for(let i=0;i<lis.length;i++){
+					lis[i].onclick=function (){
+						items.parentNode.removeChild(this.parentNode);
+						//游戏级别
+						let time=this.getAttribute('value');
+						//console.log(oSorse.innerHTML);
+						//加载游戏
+						gameScene.init().start(time);
+						//进入游戏界面
+						let j=0;
+						setInterval(function (){
+							j++;
+							gameScene.ele.style.backgroundPositionY=j+'px';
+							oSorse.innerHTML=gameScene.score;
+						},30)
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id='main'>
+			<p class='fenzhi'>分数：<span id='score'>0</span></p>
+			<div class='formation'>
+				<p id='totlScore'>总分：</p>
+				<input type='text' id='aname' placeholder="请输入昵称">
+				<button id='btn'>提交</button>
+			</div>
+			<ul class='items' id='items'>
+				<li value='500'>特别困难</li>
+				<li value='300'>比较困难</li>
+				<li value='200'>一般般</li>
+				<li value='130'>春哥附体</li>
+			</ul>
+		</div>
+	</body>
+</html>
